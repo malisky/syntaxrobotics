@@ -278,6 +278,18 @@
       .cta__actions { margin-top: 28px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
       .cta__email { margin-top: 16px; font-size: 0.92rem; opacity: 0.85; }
       .cta__email a { color: #fff; }
+      .btn--ghost { background: transparent; color: #fff; border: 1.5px solid rgba(255,255,255,0.6); font: inherit; font-weight: 700; cursor: pointer; }
+      .btn--ghost:hover { border-color: #fff; transform: translateY(-2px); }
+      #contact { scroll-margin-top: 80px; }
+
+      .toast {
+        position: fixed; left: 50%; bottom: 28px; z-index: 100;
+        transform: translate(-50%, 16px); opacity: 0; pointer-events: none;
+        background: var(--ink); color: #fff; font-weight: 600; font-size: 0.95rem;
+        padding: 12px 20px; border-radius: 9999px; white-space: nowrap; box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        transition: opacity 0.2s, transform 0.2s;
+      }
+      .toast.is-on { opacity: 1; transform: translate(-50%, 0); }
 
       .site-footer {
         padding: 40px 0;
@@ -327,10 +339,10 @@
       <div class="hero__inner">
         <div class="hero__copy">
           <span class="eyebrow">Syntax Production Intelligence</span>
-          <h1 class="hero__title">Every line<br><span class="accent">live</span> all the time.</h1>
+          <h1 class="hero__title">Every line, <span class="accent">live</span>, all the time.</h1>
           <p class="hero__sub">OEE, monitoring, analytics, and control custom-built for your plant floor.</p>
           <div class="hero__actions">
-            <a class="btn btn--green" href="mailto:michael@syntaxrobotics.com">Request a free pilot</a>
+            <a class="btn btn--green" href="#contact">Request a free pilot</a>
             <a class="btn btn--outline" href="#what">What it does</a>
           </div>
         </div>
@@ -450,6 +462,7 @@
           <p>Pilot Production Intelligence on a single line and see your real numbers.</p>
           <div class="cta__actions">
             <a class="btn btn--light" href="mailto:michael@syntaxrobotics.com">Request a free pilot</a>
+            <button class="btn btn--ghost" type="button" data-copy="michael@syntaxrobotics.com">Copy email address</button>
           </div>
           <p class="cta__email">or email <a href="mailto:michael@syntaxrobotics.com">michael@syntaxrobotics.com</a></p>
         </div>
@@ -461,5 +474,34 @@
           </a>        </footer>
       </div>
     </section>
+
+    <div class="toast" role="status" aria-live="polite"></div>
+    <script>
+      // mailto does nothing for visitors without a mail app, so every email
+      // link and the copy button also put the address on the clipboard.
+      const EMAIL = 'michael@syntaxrobotics.com';
+      const toast = document.querySelector('.toast');
+      let toastTimer;
+
+      function copyEmail() {
+        const show = (msg) => {
+          toast.textContent = msg;
+          toast.classList.add('is-on');
+          clearTimeout(toastTimer);
+          toastTimer = setTimeout(() => toast.classList.remove('is-on'), 3200);
+        };
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(EMAIL)
+            .then(() => show('Copied ' + EMAIL))
+            .catch(() => show('Email ' + EMAIL));
+        } else {
+          show('Email ' + EMAIL);
+        }
+      }
+
+      document.querySelectorAll('a[href^="mailto:"], [data-copy]').forEach((el) => {
+        el.addEventListener('click', copyEmail);
+      });
+    </script>
   </body>
 </html>
