@@ -282,8 +282,6 @@
       .cta__actions { margin-top: 28px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
       .cta__email { margin-top: 16px; font-size: 0.92rem; opacity: 0.85; }
       .cta__email a { color: #fff; }
-      .btn--ghost { background: transparent; color: #fff; border: 1.5px solid rgba(255,255,255,0.6); font: inherit; font-weight: 700; cursor: pointer; }
-      .btn--ghost:hover { border-color: #fff; transform: translateY(-2px); }
       #contact { scroll-margin-top: 80px; }
 
       .toast {
@@ -466,9 +464,7 @@
           <h2>Start with one line.</h2>
           <p>Pilot Production Intelligence on a single line and see your real numbers.</p>
           <div class="cta__actions">
-            <a class="btn btn--light" href="mailto:michael@syntaxrobotics.com">Request a free pilot</a>
-            <button class="btn btn--ghost" type="button" data-copy="michael@syntaxrobotics.com">Copy email address</button>
-          </div>
+            <a class="btn btn--light" href="mailto:michael@syntaxrobotics.com">Request a free pilot</a>          </div>
           <p class="cta__email">or email <a href="mailto:michael@syntaxrobotics.com">michael@syntaxrobotics.com</a></p>
         </div>
 
@@ -483,7 +479,7 @@
     <div class="toast" role="status" aria-live="polite"></div>
     <script>
       // mailto does nothing for visitors without a mail app, so every email
-      // link and the copy button also put the address on the clipboard.
+      // link also puts the address on the clipboard.
       const EMAIL = 'michael@syntaxrobotics.com';
       const toast = document.querySelector('.toast');
       let toastTimer;
@@ -504,7 +500,7 @@
         }
       }
 
-      document.querySelectorAll('a[href^="mailto:"], [data-copy]').forEach((el) => {
+      document.querySelectorAll('a[href^="mailto:"]').forEach((el) => {
         el.addEventListener('click', copyEmail);
       });
     </script>
